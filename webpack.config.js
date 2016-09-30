@@ -5,8 +5,8 @@
 const path = require('path');
 
 const PATHS = {
-    app: "./js/app",                       /* точка входа чтобы транспилировать */
-    build: path.join(__dirname, 'build')   /* будет билдиться в папку build npm runn*/
+    app: "./js/gridComponentNew",                    /* точка входа чтобы транспилировать */
+    build: path.join(__dirname, 'build')        /* будет билдиться в папку build npm runn*/
 };
 
 module.exports = {
@@ -24,12 +24,14 @@ module.exports = {
                 exclude: /node_modules/,
                 loader: 'babel',
                 query: {
-                    presets: ['es2015','react'] /* es2015 - чтобы работать с js2015 синтаксиом*/
-                                                /* react - чтобы работать с react синтаксиом*/
+                    presets: ['es2015', 'react']
                 }
-            }
+            },{
+                test: /\.css$/,
+                loaders: ['style', 'css']
+            },
+            { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
         ]
     },
     watch: true
-
 };
