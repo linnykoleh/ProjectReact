@@ -8,10 +8,11 @@ require("bootstrap/dist/css/bootstrap.css");
 import React from 'react';
 import {render} from 'react-dom';
 import GridRecord from './gridRecord';
+import SummaryActive from './summaryActive';
 
 const dataSource = [
-    {firstName: "John", lastName: "Doe", active: false},
-    {firstName: "Mary", lastName: "Moe", active: false},
+    {firstName: "John", lastName: "Doe", active: true},
+    {firstName: "Mary", lastName: "Moe", active: true},
     {firstName: "Peter", lastName: "Noname", active: true}
 ];
 
@@ -33,6 +34,7 @@ class GridComponent extends React.Component {
     }
 
     componentDidMount(){
+        this.refs.filterInput && this.refs.filterInput.focus(); /* ссылка на элемент ref="filterInput" */
         this.setState({
             records:dataSource
         })
@@ -46,14 +48,23 @@ class GridComponent extends React.Component {
         })
     }
 
+    handleFilterChange(e){
+        let value = e.target.value,
+            records = dataSource.filter((record) => record.firstName.toUpperCase().includes(value.toUpperCase()));
+        this.setState({
+            records:records
+        });
+    }
+
     render(){
         let records = this.state.records.map((record, index)=>{
             return <GridRecord record={record} key={index} toggleActive={this.toggleActive.bind(this, index)} updateLastName={this.updateLastName.bind(this, index)}/>
         });
+
         return (
             <div style={{width:300, height: 300, padding: 20}}>
                 <p>
-                    <input type="text" ref="filterInput" placeholder="Filter by..." />
+                    <input type="text" ref="filterInput" onChange={this.handleFilterChange.bind(this)} placeholder="Filter by..." />
                 </p>
                 <table className="table table-condensed">
                     <thead>
@@ -67,13 +78,18 @@ class GridComponent extends React.Component {
                         {records}
                     </tbody>
                 </table>
+                <div>
+                    {this.props.children && React.cloneElement(this.props.children, { records: this.state.records })}
+                </div>
             </div>
         )
     }
 }
 
 render(
-    <GridComponent/>,
+    <GridComponent>
+        <SummaryActive/>
+    </GridComponent>,
     document.getElementById('app')
 );
 

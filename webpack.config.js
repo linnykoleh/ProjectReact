@@ -5,7 +5,7 @@
 const path = require('path');
 
 const PATHS = {
-    app: "./js/gridComponentNew",                    /* точка входа чтобы транспилировать */
+    app: "./js/routing/app",               /* точка входа чтобы транспилировать */
     build: path.join(__dirname, 'build')        /* будет билдиться в папку build npm runn*/
 };
 
