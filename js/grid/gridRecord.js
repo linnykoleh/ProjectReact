@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import { hashHistory} from 'react-router';
 
 export default class GridRecord extends React.Component {
 
@@ -15,9 +16,16 @@ export default class GridRecord extends React.Component {
         this.props.updateLastName(e.target.value);
     }
 
+    showUserDetails(e){
+        e.preventDefault();
+        hashHistory.push(`/details/${this.props.record.id}`);
+    }
+
+
     render(){
         let {record} = this.props;
         return <tr>
+            <th onClick={this.showUserDetails.bind(this)}><a href="#">{record.id}</a></th>
             <th>{record.firstName}</th>
             <th><input type="text" value={record.lastName} onChange={this.handleLastNameChange.bind(this)}/></th>
             <th><input type="checkbox" checked={record.active} value={record.active} /></th>

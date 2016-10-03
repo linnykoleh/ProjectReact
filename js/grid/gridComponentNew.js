@@ -8,15 +8,15 @@ require("bootstrap/dist/css/bootstrap.css");
 import React from 'react';
 import {render} from 'react-dom';
 import GridRecord from './gridRecord';
-import SummaryActive from './summaryActive';
+import SummaryActive from '../summaries/summaryActive';
 
 const dataSource = [
-    {firstName: "John", lastName: "Doe", active: true},
-    {firstName: "Mary", lastName: "Moe", active: true},
-    {firstName: "Peter", lastName: "Noname", active: true}
+    {firstName: "John", lastName: "Doe", active: false, id: 1},
+    {firstName: "Mary", lastName: "Moe", active: false, id: 2},
+    {firstName: "Peter", lastName: "Noname", active: true, id: 3}
 ];
 
-class GridComponent extends React.Component {
+export default class GridComponent extends React.Component {
 
     constructor(){
         super();
@@ -69,6 +69,7 @@ class GridComponent extends React.Component {
                 <table className="table table-condensed">
                     <thead>
                     <tr>
+                        <th>Id</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Active</th>
