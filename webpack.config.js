@@ -5,8 +5,8 @@
 const path = require('path');
 
 const PATHS = {
-    app: "./js/routing/app",               /* точка входа чтобы транспилировать */
-    build: path.join(__dirname, 'build')        /* будет билдиться в папку build npm runn*/
+    app: "./js/redux/Containers/app",               /* точка входа чтобы транспилировать */
+    build: path.join(__dirname, 'build')   /* будет билдиться в папку build npm runn*/
 };
 
 module.exports = {
